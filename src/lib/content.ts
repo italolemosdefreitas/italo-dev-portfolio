@@ -10,6 +10,7 @@ export const LINKS = {
   whatsapp: "https://wa.me/5519983671358",
   email: "mailto:italo.lemosdf@hotmail.com",
   reservas: "https://reservasanhanguera.lovable.app/",
+  erp: "https://agendamentoacademico.lovable.app/",
 };
 
 export type Lang = "pt" | "en";
@@ -126,8 +127,8 @@ export const content = {
           description:
             "Colaborei no sistema ERP da faculdade, contribuindo com UI/UX, testes de estresse e novas funcionalidades para atender outros setores.",
           tags: ["ERP", "UI/UX", "Testes de estresse"],
-          link: null as string | null,
-          linkLabel: null as string | null,
+          link: LINKS.erp,
+          linkLabel: "Visitar site",
         },
       ],
     },
@@ -280,8 +281,8 @@ export const content = {
           description:
             "Collaborated on the college's ERP system, contributing to UI/UX, stress testing, and new features for other departments.",
           tags: ["ERP", "UI/UX", "Stress testing"],
-          link: null as string | null,
-          linkLabel: null as string | null,
+          link: LINKS.erp,
+          linkLabel: "Visit site",
         },
       ],
     },
