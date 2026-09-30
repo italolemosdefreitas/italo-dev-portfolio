@@ -121,7 +121,7 @@ function Portfolio() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-display flex min-w-0 items-center gap-2 whitespace-nowrap text-xl font-bold transition-colors hover:text-primary"
               >
-                <img src="/italo-dev-256.png" alt="Ítalo Logo" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8 object-cover" width={36} height={36} />
+                <img src={brandIcon.url} alt="" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8" width={36} height={36} />
                 Ítalo<span className="text-primary">.</span>dev
               </a>
               <nav aria-label={lang === "pt" ? "Navegação principal" : "Main navigation"} className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
@@ -337,11 +337,11 @@ function Portfolio() {
               {t.projects.items.map((p) => (
                 <article
                   key={p.title}
-                  className="flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40"
+                  className="flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40 md:last:odd:col-span-2 md:last:odd:w-[calc(50%-0.75rem)] md:last:odd:justify-self-center"
                 >
                   <div className="flex items-center gap-3">
                     <span className="rounded-lg bg-primary/10 p-2 text-primary">
-                      {p.link ? <CalendarCheck className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
+                      {p.link ? <CalendarCheck className="h-5 w-5" /> : p.tags.includes("ERP") ? <Briefcase className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
                     </span>
                     <h3 className="font-display text-lg font-semibold">{p.title}</h3>
                   </div>

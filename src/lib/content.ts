@@ -70,6 +70,7 @@ export const content = {
             "Suporte técnico N1 e gerenciamento de chamados via ServiceNow para toda a unidade.",
             "Administração de rede e infraestrutura; cabeamento estruturado e suporte ao CPD.",
             "Desenvolvimento e manutenção de chatbot corporativo (Node.js) integrado a Discord, WhatsApp e NocoDB — 140–180 chamados/mês.",
+            "Colaboração em sistema ERP da Anhanguera, com contribuições em UI/UX, testes de estresse e novas funcionalidades para outros setores.",
           ],
         },
         {
@@ -119,6 +120,14 @@ export const content = {
           tags: ["React", "TypeScript", "Lovable Cloud"],
           link: LINKS.reservas,
           linkLabel: "Visitar site",
+        },
+        {
+          title: "ERP Acadêmico — Anhanguera",
+          description:
+            "Colaborei no sistema ERP da faculdade, contribuindo com UI/UX, testes de estresse e novas funcionalidades para atender outros setores.",
+          tags: ["ERP", "UI/UX", "Testes de estresse"],
+          link: null as string | null,
+          linkLabel: null as string | null,
         },
       ],
     },
@@ -215,6 +224,7 @@ export const content = {
             "Tier 1 technical support and ticket management via ServiceNow for the entire campus.",
             "Network and infrastructure administration; structured cabling and data center support.",
             "Development and maintenance of a corporate chatbot (Node.js) integrated with Discord, WhatsApp, and NocoDB — 140–180 tickets/month.",
+            "Collaborated on Anhanguera's ERP system, contributing to UI/UX, stress testing, and new features for other departments.",
           ],
         },
         {
@@ -264,6 +274,14 @@ export const content = {
           tags: ["React", "TypeScript", "Lovable Cloud"],
           link: LINKS.reservas,
           linkLabel: "Visit site",
+        },
+        {
+          title: "Academic ERP — Anhanguera",
+          description:
+            "Collaborated on the college's ERP system, contributing to UI/UX, stress testing, and new features for other departments.",
+          tags: ["ERP", "UI/UX", "Stress testing"],
+          link: null as string | null,
+          linkLabel: null as string | null,
         },
       ],
     },
