@@ -1,0 +1,13 @@
+- [x] Apply Spell UI highlighted text to prominent portfolio headings.
+- [x] Add subtle Spell UI light rays behind the page, responsive and reduced-motion aware.
+- [x] Place the supplied Ítalo.dev logo in the header and supplied icon in the browser tab.
+- [x] Verify desktop and mobile presentation and existing navigation.
+- [x] Give highlighted letters enough breathing room, including accents.
+- [x] Alternate headline reveals between left, right, bottom, and top.
+- [x] Soften section separator strokes and their glow.
+- [x] Prevent Light Rays flicker while scrolling on mobile and increase their speed.
+- [x] Make the Ítalo.dev header brand return to the top of the page.
+- [x] Make Light Rays faster and more visible without obscuring the portfolio.
+- [x] Keep the mobile header fixed during rapid scrolling.
+- [x] Stress-test rapid scrolling and constrained-device performance on mobile and desktop.
+- [x] Rework the mobile header into a comfortably sized brand row and fully visible navigation menu.
