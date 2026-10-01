@@ -173,7 +173,7 @@ function Portfolio() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-display flex min-w-0 items-center gap-2 whitespace-nowrap text-xl font-bold transition-colors hover:text-primary"
               >
-                <img src={brandIcon.url} alt="" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8" width={36} height={36} />
+                <img src="/italo-dev-256.png" alt="Ítalo Logo" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8 object-cover" width={36} height={36} />
                 Ítalo<span className="text-primary">.</span>dev
               </a>
               <nav aria-label={lang === "pt" ? "Navegação principal" : "Main navigation"} className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
