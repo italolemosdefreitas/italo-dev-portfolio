@@ -10,6 +10,7 @@ export const LINKS = {
   whatsapp: "https://wa.me/5519983671358",
   email: "mailto:italo.lemosdf@hotmail.com",
   reservas: "https://reservasanhanguera.lovable.app/",
+  portfolio: "https://testeildf.lovable.app/",
   erp: "https://agendamentoacademico.lovable.app/",
 };
 
@@ -129,6 +130,14 @@ export const content = {
           tags: ["ERP", "UI/UX", "Testes de estresse"],
           link: LINKS.erp,
           linkLabel: "Visitar site",
+        },
+        {
+          title: "Portfólio Ítalo.dev",
+          description:
+            "Este site reúne minha trajetória, projetos e formas de contato em uma experiência responsiva, bilíngue e com animações interativas.",
+          tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
+          link: LINKS.portfolio,
+          linkLabel: "Ir ao inicio do site",
         },
       ],
     },
@@ -283,6 +292,14 @@ export const content = {
           tags: ["ERP", "UI/UX", "Stress testing"],
           link: LINKS.erp,
           linkLabel: "Visit site",
+        },
+        {
+          title: "Ítalo.dev Portfolio",
+          description:
+            "This site presents my experience, projects, and contact details in a responsive, bilingual experience with interactive animations.",
+          tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
+          link: LINKS.portfolio,
+          linkLabel: "Go to the start of the site",
         },
       ],
     },

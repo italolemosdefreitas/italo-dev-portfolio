@@ -11,3 +11,9 @@
 - [x] Keep the mobile header fixed during rapid scrolling.
 - [x] Stress-test rapid scrolling and constrained-device performance on mobile and desktop.
 - [x] Rework the mobile header into a comfortably sized brand row and fully visible navigation menu.
+- [x] Add Anhanguera ERP collaboration to experience and featured projects in Portuguese and English.
+- [x] Animate the mobile menu's three bars into a close icon with reduced-motion support.
+- [x] Cascade the mobile navigation links with a fluid panel reveal and graceful closing motion.
+- [x] Add minimal mobile up/down controls that smoothly navigate between portfolio sections.
+- [x] Compact the mobile section arrows after two seconds and restore them on tap.
+- [x] Feature this portfolio among the projects in Portuguese and English.

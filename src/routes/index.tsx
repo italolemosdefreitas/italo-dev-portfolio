@@ -20,8 +20,9 @@ import {
   Award,
   Languages,
   Loader,
-  Menu,
-  X,
+  Code2,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { content, LINKS, RESUME_EN_URL, RESUME_PT_URL, type Lang } from "@/lib/content";
 
@@ -48,6 +49,7 @@ export const Route = createFileRoute("/")({
 });
 
 const LightRays = lazy(() => import("@/components/spell/light-rays"));
+const sectionIds = ["inicio", "sobre", "experiencia", "projetos", "competencias", "educacao", "contato"] as const;
 
 function PageRays() {
   const [mounted, setMounted] = useState(false);
@@ -88,7 +90,21 @@ function PageRays() {
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("pt");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(0);
+  const [arrowsExpanded, setArrowsExpanded] = useState(true);
+  const [arrowInteraction, setArrowInteraction] = useState(0);
   const t = content[lang];
+
+  useEffect(() => {
+    if (!arrowsExpanded) return;
+    const timeout = window.setTimeout(() => setArrowsExpanded(false), 2000);
+    return () => window.clearTimeout(timeout);
+  }, [arrowsExpanded, arrowInteraction]);
+
+  const revealArrows = () => {
+    setArrowsExpanded(true);
+    setArrowInteraction((count) => count + 1);
+  };
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -98,6 +114,42 @@ function Portfolio() {
     document.addEventListener("keydown", closeOnEscape);
     return () => document.removeEventListener("keydown", closeOnEscape);
   }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    let frame = 0;
+    const updateSection = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const position = window.scrollY + 120;
+        let current = 0;
+        sectionIds.forEach((id, index) => {
+          const element = document.getElementById(id);
+          if (element && element.getBoundingClientRect().top + window.scrollY <= position) current = index;
+        });
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) current = sectionIds.length - 1;
+        setActiveSection(current);
+      });
+    };
+    updateSection();
+    window.addEventListener("scroll", updateSection, { passive: true });
+    window.addEventListener("resize", updateSection);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateSection);
+      window.removeEventListener("resize", updateSection);
+    };
+  }, []);
+
+  const goToSection = (direction: -1 | 1) => {
+    const next = Math.max(0, Math.min(sectionIds.length - 1, activeSection + direction));
+    const nextId = sectionIds[next];
+    if (!nextId) return;
+    const target = document.getElementById(nextId);
+    if (!target) return;
+    setMobileMenuOpen(false);
+    setActiveSection(next);
+    target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
+  };
 
   const navItems = [
     { href: "#sobre", label: t.nav.about },
@@ -121,7 +173,7 @@ function Portfolio() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-display flex min-w-0 items-center gap-2 whitespace-nowrap text-xl font-bold transition-colors hover:text-primary"
               >
-                <img src="/italo-dev-256.png" alt="Ítalo Logo" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8 object-cover" width={36} height={36} />
+                <img src={brandIcon.url} alt="" className="h-9 w-9 shrink-0 rounded-md lg:h-8 lg:w-8" width={36} height={36} />
                 Ítalo<span className="text-primary">.</span>dev
               </a>
               <nav aria-label={lang === "pt" ? "Navegação principal" : "Main navigation"} className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
@@ -159,30 +211,52 @@ function Portfolio() {
                 aria-controls="mobile-navigation"
                 onClick={() => setMobileMenuOpen((open) => !open)}
               >
-                {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+                <span aria-hidden="true" className="relative block h-5 w-6">
+                  <span className={`absolute left-0 top-[2px] h-0.5 w-6 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${mobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+                  <span className={`absolute left-0 top-[9px] h-0.5 w-6 rounded-full bg-current transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${mobileMenuOpen ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100"}`} />
+                  <span className={`absolute left-0 top-[16px] h-0.5 w-6 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${mobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+                </span>
               </Button>
             </div>
           </div>
           <nav
             id="mobile-navigation"
             aria-label={lang === "pt" ? "Navegação principal" : "Main navigation"}
-            hidden={!mobileMenuOpen}
-            className="absolute inset-x-0 top-full border-b border-border bg-background shadow-lg lg:hidden"
+            aria-hidden={!mobileMenuOpen}
+            inert={!mobileMenuOpen}
+            data-open={mobileMenuOpen}
+            className="mobile-nav-panel absolute inset-x-0 top-full grid border-b bg-background shadow-lg lg:hidden"
           >
-            <div className="mx-auto grid max-w-5xl px-4 py-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="border-b border-border/50 px-2 py-3.5 text-base font-medium text-foreground transition-colors last:border-0 hover:text-primary focus-visible:text-primary"
-                >
-                  {item.label}
-                </a>
-              ))}
+            <div className="min-h-0 overflow-hidden">
+              <div className="mx-auto grid max-w-5xl px-4 py-2">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="mobile-nav-item border-b border-border/50 px-2 py-3.5 text-base font-medium text-foreground transition-colors last:border-0 hover:text-primary focus-visible:text-primary"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </nav>
         </header>
+
+        <nav aria-label={lang === "pt" ? "Navegar entre áreas" : "Navigate between sections"} className={`fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-40 overflow-hidden rounded-full border border-border/60 bg-background/45 shadow-lg backdrop-blur-md transition-[width,height,right,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden ${arrowsExpanded ? "right-4 h-[5.75rem] w-[3.125rem] p-1 opacity-100" : "right-2 h-11 w-11 opacity-30"}`}>
+          <Button type="button" variant="ghost" size="icon" className={`absolute inset-0 h-full w-full flex-col gap-0 rounded-full text-section-arrow transition-opacity duration-300 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:stroke-[2.5] ${arrowsExpanded ? "pointer-events-none opacity-0" : "opacity-100"}`} aria-label={lang === "pt" ? "Mostrar setas de navegação" : "Show navigation arrows"} title={lang === "pt" ? "Mostrar setas" : "Show arrows"} tabIndex={arrowsExpanded ? -1 : 0} aria-hidden={arrowsExpanded} onClick={revealArrows}>
+            <ArrowUp /><ArrowDown />
+          </Button>
+          <div className={`flex flex-col gap-1 transition-opacity duration-300 motion-reduce:transition-none ${arrowsExpanded ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={!arrowsExpanded} inert={!arrowsExpanded}>
+            <Button type="button" variant="ghost" size="icon" className="h-10 w-10 rounded-full text-section-arrow transition-colors hover:bg-accent/50 hover:text-section-arrow disabled:opacity-50 [&_svg]:size-5.5 [&_svg]:stroke-[2.5]" aria-label={lang === "pt" ? "Área anterior" : "Previous section"} title={lang === "pt" ? "Área anterior" : "Previous section"} disabled={activeSection === 0} onClick={() => { revealArrows(); goToSection(-1); }}>
+              <ArrowUp className="h-5 w-5" />
+            </Button>
+            <Button type="button" variant="ghost" size="icon" className="h-10 w-10 rounded-full text-section-arrow transition-colors hover:bg-accent/50 hover:text-section-arrow disabled:opacity-50 [&_svg]:size-5.5 [&_svg]:stroke-[2.5]" aria-label={lang === "pt" ? "Próxima área" : "Next section"} title={lang === "pt" ? "Próxima área" : "Next section"} disabled={activeSection === sectionIds.length - 1} onClick={() => { revealArrows(); goToSection(1); }}>
+              <ArrowDown className="h-5 w-5" />
+            </Button>
+          </div>
+        </nav>
 
         {/* Hero */}
         <section className="relative overflow-hidden">
@@ -341,7 +415,7 @@ function Portfolio() {
                 >
                   <div className="flex items-center gap-3">
                     <span className="rounded-lg bg-primary/10 p-2 text-primary">
-                      {p.link ? <CalendarCheck className="h-5 w-5" /> : p.tags.includes("ERP") ? <Briefcase className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
+                       {p.link === LINKS.portfolio ? <Code2 className="h-5 w-5" /> : p.link ? <CalendarCheck className="h-5 w-5" /> : p.tags.includes("ERP") ? <Briefcase className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
                     </span>
                     <h3 className="font-display text-lg font-semibold">{p.title}</h3>
                   </div>
@@ -401,7 +475,7 @@ function Portfolio() {
         </section>
 
         {/* Education */}
-        <section className="section-divider">
+        <section id="educacao" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
             <h2 className="font-display flex items-center gap-2 text-2xl font-bold md:text-3xl">
               <GraduationCap className="h-6 w-6 text-primary" />{" "}
