@@ -225,7 +225,7 @@ function Portfolio() {
             aria-hidden={!mobileMenuOpen}
             inert={!mobileMenuOpen}
             data-open={mobileMenuOpen}
-            className="mobile-nav-panel absolute inset-x-0 top-full grid border-b bg-background shadow-lg lg:hidden"
+            className={`mobile-nav-panel absolute inset-x-0 top-full grid overflow-hidden bg-background transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden ${mobileMenuOpen ? "grid-rows-[1fr] border-b shadow-lg opacity-100" : "grid-rows-[0fr] border-b-0 shadow-none opacity-0 pointer-events-none"}`}
           >
             <div className="min-h-0 overflow-hidden">
               <div className="mx-auto grid max-w-5xl px-4 py-2">
