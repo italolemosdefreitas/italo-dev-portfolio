@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { BlurReveal } from "@/components/spell/blur-reveal";
 import { HighlightedText } from "@/components/spell/highlighted-text";
 import { QRCode } from "@/components/spell/qr-code";
@@ -93,6 +93,9 @@ function Portfolio() {
   const [activeSection, setActiveSection] = useState(0);
   const [arrowsExpanded, setArrowsExpanded] = useState(true);
   const [arrowInteraction, setArrowInteraction] = useState(0);
+  const [arrowPosition, setArrowPosition] = useState<{ left: number; top: number } | null>(null);
+  const arrowDrag = useRef<{ pointerId: number; startX: number; startY: number; left: number; top: number; width: number; height: number; moved: boolean } | null>(null);
+  const suppressArrowClick = useRef(false);
   const t = content[lang];
 
   useEffect(() => {
@@ -104,6 +107,51 @@ function Portfolio() {
   const revealArrows = () => {
     setArrowsExpanded(true);
     setArrowInteraction((count) => count + 1);
+  };
+
+  useEffect(() => {
+    const move = (event: PointerEvent) => {
+      const drag = arrowDrag.current;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      const deltaX = event.clientX - drag.startX;
+      const deltaY = event.clientY - drag.startY;
+      if (!drag.moved && Math.hypot(deltaX, deltaY) < 8) return;
+      drag.moved = true;
+      suppressArrowClick.current = true;
+      event.preventDefault();
+      const left = Math.max(8, Math.min(window.innerWidth - drag.width - 8, drag.left + deltaX));
+      const top = Math.max(8, Math.min(window.innerHeight - drag.height - 8, drag.top + deltaY));
+      setArrowPosition({ left, top });
+    };
+    const end = (event: PointerEvent) => {
+      if (arrowDrag.current?.pointerId !== event.pointerId) return;
+      const wasDragged = arrowDrag.current.moved;
+      arrowDrag.current = null;
+      if (wasDragged) window.setTimeout(() => { suppressArrowClick.current = false; }, 0);
+    };
+    window.addEventListener("pointermove", move, { passive: false });
+    window.addEventListener("pointerup", end);
+    window.addEventListener("pointercancel", end);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", end);
+      window.removeEventListener("pointercancel", end);
+    };
+  }, []);
+
+  const startArrowDrag = (event: ReactPointerEvent<HTMLElement>) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    arrowDrag.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+      moved: false,
+    };
   };
 
   useEffect(() => {
@@ -244,7 +292,7 @@ function Portfolio() {
           </nav>
         </header>
 
-        <nav aria-label={lang === "pt" ? "Navegar entre áreas" : "Navigate between sections"} className={`fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-40 overflow-hidden rounded-full border border-border/60 bg-background/45 shadow-lg backdrop-blur-md transition-[width,height,right,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden ${arrowsExpanded ? "right-4 h-[5.75rem] w-[3.125rem] p-1 opacity-100" : "right-2 h-11 w-11 opacity-30"}`}>
+        <nav aria-label={lang === "pt" ? "Navegar entre áreas" : "Navigate between sections"} onPointerDown={startArrowDrag} onClickCapture={(event) => { if (suppressArrowClick.current) { event.preventDefault(); event.stopPropagation(); suppressArrowClick.current = false; } }} style={arrowPosition ? { left: arrowPosition.left, top: arrowPosition.top } : undefined} className={`fixed z-40 touch-none select-none overflow-hidden rounded-full border border-border/60 bg-background/45 shadow-lg backdrop-blur-md transition-[width,height,right,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden ${arrowPosition ? "" : "bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4"} ${arrowsExpanded ? "h-[5.75rem] w-[3.125rem] p-1 opacity-100" : "h-11 w-11 opacity-30"}`}>
           <Button type="button" variant="ghost" size="icon" className={`absolute inset-0 h-full w-full flex-col gap-0 rounded-full text-section-arrow transition-opacity duration-300 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:stroke-[2.5] ${arrowsExpanded ? "pointer-events-none opacity-0" : "opacity-100"}`} aria-label={lang === "pt" ? "Mostrar setas de navegação" : "Show navigation arrows"} title={lang === "pt" ? "Mostrar setas" : "Show arrows"} tabIndex={arrowsExpanded ? -1 : 0} aria-hidden={arrowsExpanded} onClick={revealArrows}>
             <ArrowUp /><ArrowDown />
           </Button>
