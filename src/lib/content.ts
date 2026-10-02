@@ -136,7 +136,7 @@ export const content = {
           description:
             "Este site reúne minha trajetória, projetos e formas de contato em uma experiência responsiva, bilíngue e com animações interativas.",
           tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
-          link: LINKS.portfolio,
+          link: null as string | null,
           linkLabel: null as string | null,
         },
       ],
@@ -298,7 +298,7 @@ export const content = {
           description:
             "This site presents my experience, projects, and contact details in a responsive, bilingual experience with interactive animations.",
           tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
-          link: LINKS.portfolio,
+          link: null as string | null,
           linkLabel: null as string | null,
         },
       ],
