@@ -1,5 +1,8 @@
-export const RESUME_EN_URL = "/resume-en.pdf";
-export const RESUME_PT_URL = "/curriculo-pt.pdf";
+import resumeEn from "@/assets/resume-en.pdf.asset.json";
+import resumePt from "@/assets/resume-pt.pdf.asset.json";
+
+export const RESUME_EN_URL = resumeEn.url;
+export const RESUME_PT_URL = resumePt.url;
 
 export const LINKS = {
   github: "https://github.com/italolemosdefreitas",
@@ -32,8 +35,8 @@ export const content = {
         "Profissional de TI com experiência em suporte técnico (N1/N3), infraestrutura de redes e desenvolvimento de automações. Graduando em Ciência da Computação, com destaque para um chatbot corporativo que processa 140–180 solicitações por mês.",
       ctaPrimary: "Solicitar orçamento",
       ctaSecondary: "Ver projetos",
-      downloadPt: "Ver currículo (PT)",
-      downloadEn: "Ver currículo (EN)",
+      downloadPt: "Currículo (PT)",
+      downloadEn: "Resume (EN)",
       location: "Piracicaba, SP — Brasil",
     },
     stats: [
@@ -195,8 +198,8 @@ export const content = {
         "IT professional experienced in technical support (Tier 1/3), network infrastructure, and automation development. Computer Science undergraduate, highlighted by a corporate chatbot now handling 140–180 requests per month.",
       ctaPrimary: "Request a quote",
       ctaSecondary: "View projects",
-      downloadPt: "View resume (PT)",
-      downloadEn: "View resume (EN)",
+      downloadPt: "Currículo (PT)",
+      downloadEn: "Resume (EN)",
       location: "Piracicaba, SP — Brazil",
     },
     stats: [
