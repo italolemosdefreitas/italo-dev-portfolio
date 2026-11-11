@@ -1,8 +1,5 @@
-import resumeEn from "@/assets/resume-en.pdf.asset.json";
-import resumePt from "@/assets/resume-pt.pdf.asset.json";
-
-export const RESUME_EN_URL = resumeEn.url;
-export const RESUME_PT_URL = resumePt.url;
+export const RESUME_EN_URL = "/resume-en.pdf";
+export const RESUME_PT_URL = "/curriculo-pt.pdf";
 
 export const LINKS = {
   github: "https://github.com/italolemosdefreitas",
@@ -35,8 +32,8 @@ export const content = {
         "Profissional de TI com experiência em suporte técnico (N1/N3), infraestrutura de redes e desenvolvimento de automações. Graduando em Ciência da Computação, com destaque para um chatbot corporativo que processa 140–180 solicitações por mês.",
       ctaPrimary: "Solicitar orçamento",
       ctaSecondary: "Ver projetos",
-      downloadPt: "Currículo (PT)",
-      downloadEn: "Resume (EN)",
+      downloadPt: "Ver currículo (PT)",
+      downloadEn: "Ver currículo (EN)",
       location: "Piracicaba, SP — Brasil",
     },
     stats: [
@@ -165,7 +162,7 @@ export const content = {
       school: "UNINTER — Centro Universitário Internacional",
       period: "Jan 2024 — Dez 2027",
       inProgress: "Em andamento",
-      inProgressItems: ["ITIL 4 Foundation (previsão: Out/2026)", "CompTIA Network+ (previsão: Out/2026)"],
+      inProgressItems: ["ITIL 4 Foundation (previsão: Dez/2026)", "CompTIA Network+ (previsão: Dez/2026)"],
       certs: "Certificações",
       certItems: ["Power BI — Construindo Cálculos com DAX", "Estatística com Python", "Lógica de Programação com JavaScript"],
       langs: "Idiomas",
@@ -198,8 +195,8 @@ export const content = {
         "IT professional experienced in technical support (Tier 1/3), network infrastructure, and automation development. Computer Science undergraduate, highlighted by a corporate chatbot now handling 140–180 requests per month.",
       ctaPrimary: "Request a quote",
       ctaSecondary: "View projects",
-      downloadPt: "Currículo (PT)",
-      downloadEn: "Resume (EN)",
+      downloadPt: "View resume (PT)",
+      downloadEn: "View resume (EN)",
       location: "Piracicaba, SP — Brazil",
     },
     stats: [
@@ -328,7 +325,7 @@ export const content = {
       school: "UNINTER — International University Center",
       period: "Jan 2024 — Dec 2027",
       inProgress: "In progress",
-      inProgressItems: ["ITIL 4 Foundation (expected: Oct/2026)", "CompTIA Network+ (expected: Oct/2026)"],
+      inProgressItems: ["ITIL 4 Foundation (expected: Dec/2026)", "CompTIA Network+ (expected: Dec/2026)"],
       certs: "Certifications",
       certItems: ["Power BI — Building Calculations with DAX", "Statistics with Python", "Programming Logic with JavaScript"],
       langs: "Languages",

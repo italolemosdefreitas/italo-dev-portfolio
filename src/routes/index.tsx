@@ -11,7 +11,6 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  Download,
   ExternalLink,
   Bot,
   CalendarCheck,
@@ -352,7 +351,7 @@ function Portfolio() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm text-muted-foreground btn-anim hover:bg-accent hover:text-foreground"
               >
-                <Download className="h-4 w-4" /> {t.hero.downloadPt}
+                <ExternalLink className="h-4 w-4" /> {t.hero.downloadPt}
               </a>
               <a
                 href={RESUME_EN_URL}
@@ -360,7 +359,7 @@ function Portfolio() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm text-muted-foreground btn-anim hover:bg-accent hover:text-foreground"
               >
-                <Download className="h-4 w-4" /> {t.hero.downloadEn}
+                <ExternalLink className="h-4 w-4" /> {t.hero.downloadEn}
               </a>
             </div>
 
