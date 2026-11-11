@@ -627,6 +627,7 @@ function Portfolio() {
                     type="button"
                     size="lg"
                     variant="outline"
+                    className="border-primary/40 bg-primary/10 text-primary hover:border-primary/55 hover:bg-primary/15 hover:text-primary focus-visible:ring-primary/60"
                     aria-expanded={contactFormOpen}
                     aria-controls="contact-request-form"
                     onClick={() => {
