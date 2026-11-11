@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { BlurReveal } from "@/components/spell/blur-reveal";
 import { HighlightedText } from "@/components/spell/highlighted-text";
 import { QRCode } from "@/components/spell/qr-code";
 import brandIcon from "@/assets/italo-dev-256.png.asset.json";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Github,
   Linkedin,
@@ -95,6 +97,9 @@ function Portfolio() {
   const [arrowPosition, setArrowPosition] = useState<{ left: number; top: number } | null>(null);
   const arrowDrag = useRef<{ pointerId: number; startX: number; startY: number; left: number; top: number; width: number; height: number; moved: boolean } | null>(null);
   const suppressArrowClick = useRef(false);
+  const [contactFormOpen, setContactFormOpen] = useState(false);
+  const [contactFormStatus, setContactFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const contactFormRef = useRef<HTMLFormElement>(null);
   const t = content[lang];
 
   useEffect(() => {
@@ -151,6 +156,40 @@ function Portfolio() {
       height: rect.height,
       moved: false,
     };
+  };
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fields = Object.fromEntries(new FormData(form).entries());
+    const projectType = String(fields.projectType ?? "");
+    const projectLabel = t.contact.projectOptions[projectType as keyof typeof t.contact.projectOptions] ?? projectType;
+
+    setContactFormStatus("sending");
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/italo.lemosdf@hotmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...fields,
+          _subject: `${lang === "pt" ? "Novo contato" : "New inquiry"} — ${projectLabel}`,
+          _template: "table",
+          _replyto: fields.email,
+          _url: window.location.href,
+        }),
+      });
+      const result = (await response.json()) as { success?: boolean | string };
+      if (!response.ok || result.success === false || result.success === "false" || result.success === "error") {
+        throw new Error("Contact form submission failed");
+      }
+      form.reset();
+      setContactFormStatus("sent");
+    } catch {
+      setContactFormStatus("error");
+    }
   };
 
   useEffect(() => {
@@ -584,6 +623,27 @@ function Portfolio() {
                       <MessageCircle className="h-4 w-4" /> {t.contact.whatsappCta}
                     </a>
                   </Button>
+                  <Button
+                    type="button"
+                    size="lg"
+                    variant="outline"
+                    aria-expanded={contactFormOpen}
+                    aria-controls="contact-request-form"
+                    onClick={() => {
+                      const nextOpen = !contactFormOpen;
+                      setContactFormOpen(nextOpen);
+                      if (nextOpen) {
+                        window.setTimeout(() => {
+                          contactFormRef.current?.scrollIntoView({
+                            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+                            block: "start",
+                          });
+                        }, 50);
+                      }
+                    }}
+                  >
+                    {t.contact.formButton}
+                  </Button>
                   <a
                     href={LINKS.email}
                     className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-semibold btn-anim hover:bg-accent"
@@ -627,6 +687,82 @@ function Portfolio() {
                 <p className="text-xs text-muted-foreground">{t.contact.qrLabel}</p>
               </div>
             </div>
+            {contactFormOpen && (
+              <form
+                id="contact-request-form"
+                ref={contactFormRef}
+                onSubmit={handleContactSubmit}
+                className="mt-12 scroll-mt-24 rounded-2xl border border-border/70 bg-card p-5 shadow-lg md:p-8"
+              >
+                <div className="mb-6">
+                  <h3 className="font-display text-xl font-bold md:text-2xl">{t.contact.formTitle}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{t.contact.formIntro}</p>
+                </div>
+
+                <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                  <label htmlFor="contact-website">Leave this field empty</label>
+                  <input id="contact-website" name="_honey" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
+
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label htmlFor="contact-name" className="mb-2 block text-sm font-medium">{t.contact.nameLabel}</label>
+                    <Input id="contact-name" name="name" autoComplete="name" maxLength={100} placeholder={t.contact.namePlaceholder} required />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="mb-2 block text-sm font-medium">{t.contact.emailLabel}</label>
+                    <Input id="contact-email" name="email" type="email" autoComplete="email" maxLength={254} placeholder={t.contact.emailPlaceholder} required />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium">{t.contact.phoneLabel}</label>
+                    <Input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={30} placeholder={t.contact.phonePlaceholder} />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-project" className="mb-2 block text-sm font-medium">{t.contact.projectLabel}</label>
+                    <select
+                      id="contact-project"
+                      name="projectType"
+                      required
+                      defaultValue=""
+                      className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    >
+                      <option value="" disabled>{t.contact.projectPlaceholder}</option>
+                      <option value="website">{t.contact.projectOptions.website}</option>
+                      <option value="webApp">{t.contact.projectOptions.webApp}</option>
+                      <option value="mobileApp">{t.contact.projectOptions.mobileApp}</option>
+                      <option value="automation">{t.contact.projectOptions.automation}</option>
+                      <option value="support">{t.contact.projectOptions.support}</option>
+                      <option value="other">{t.contact.projectOptions.other}</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="contact-details" className="mb-2 block text-sm font-medium">{t.contact.detailsLabel}</label>
+                    <Textarea
+                      id="contact-details"
+                      name="details"
+                      minLength={20}
+                      maxLength={3000}
+                      rows={5}
+                      placeholder={t.contact.detailsPlaceholder}
+                      className="min-h-32 resize-y bg-background"
+                      required
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="contact-timeline" className="mb-2 block text-sm font-medium">{t.contact.timelineLabel}</label>
+                    <Input id="contact-timeline" name="timeline" maxLength={120} placeholder={t.contact.timelinePlaceholder} />
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+                  <Button type="submit" size="lg" className="btn-anim btn-primary-anim" disabled={contactFormStatus === "sending"}>
+                    {contactFormStatus === "sending" ? t.contact.sendingLabel : t.contact.submitLabel}
+                  </Button>
+                  {contactFormStatus === "sent" && <p role="status" className="text-sm text-primary">{t.contact.successMessage}</p>}
+                  {contactFormStatus === "error" && <p role="alert" className="text-sm text-destructive">{t.contact.errorMessage}</p>}
+                </div>
+              </form>
+            )}
           </div>
         </section>
 
