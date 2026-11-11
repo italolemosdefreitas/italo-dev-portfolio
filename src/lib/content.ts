@@ -1,8 +1,8 @@
-import resumeEn from "@/assets/resume-en.pdf.asset.json";
-import resumePt from "@/assets/resume-pt.pdf.asset.json";
+import resumeEn from "@/assets/resume-en.pdf?url";
+import resumePt from "@/assets/curriculo-pt.pdf?url";
 
-export const RESUME_EN_URL = resumeEn.url;
-export const RESUME_PT_URL = resumePt.url;
+export const RESUME_EN_URL = resumeEn;
+export const RESUME_PT_URL = resumePt;
 
 export const LINKS = {
   github: "https://github.com/italolemosdefreitas",
