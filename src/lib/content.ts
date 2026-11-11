@@ -23,6 +23,7 @@ export const content = {
       experience: "Experiência",
       projects: "Projetos",
       skills: "Competências",
+      education: "Formação",
       contact: "Contato",
     },
     hero: {
@@ -185,6 +186,7 @@ export const content = {
       experience: "Experience",
       projects: "Projects",
       skills: "Skills",
+      education: "Education",
       contact: "Contact",
     },
     hero: {

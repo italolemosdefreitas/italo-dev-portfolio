@@ -204,6 +204,7 @@ function Portfolio() {
     { href: "#experiencia", label: t.nav.experience },
     { href: "#projetos", label: t.nav.projects },
     { href: "#competencias", label: t.nav.skills },
+    { href: "#educacao", label: t.nav.education },
     { href: "#contato", label: t.nav.contact },
   ];
 
