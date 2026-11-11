@@ -98,7 +98,7 @@ function Portfolio() {
   const arrowDrag = useRef<{ pointerId: number; startX: number; startY: number; left: number; top: number; width: number; height: number; moved: boolean } | null>(null);
   const suppressArrowClick = useRef(false);
   const [contactFormOpen, setContactFormOpen] = useState(false);
-  const [contactFormStatus, setContactFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [contactFormStatus, setContactFormStatus] = useState<"idle" | "sending" | "sent" | "activation" | "error">("idle");
   const contactFormRef = useRef<HTMLFormElement>(null);
   const t = content[lang];
 
@@ -181,13 +181,18 @@ function Portfolio() {
           _url: window.location.href,
         }),
       });
-      const result = (await response.json()) as { success?: boolean | string };
-      if (!response.ok || result.success === false || result.success === "false" || result.success === "error") {
-        throw new Error("Contact form submission failed");
+      const result = (await response.json()) as { success?: boolean | string; message?: string };
+      if (!response.ok || String(result.success).toLowerCase() !== "true") {
+        if (/activat|confirm/i.test(result.message ?? "")) {
+          setContactFormStatus("activation");
+          return;
+        }
+        throw new Error(result.message || "Contact form submission failed");
       }
       form.reset();
       setContactFormStatus("sent");
-    } catch {
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
       setContactFormStatus("error");
     }
   };
@@ -760,6 +765,7 @@ function Portfolio() {
                     {contactFormStatus === "sending" ? t.contact.sendingLabel : t.contact.submitLabel}
                   </Button>
                   {contactFormStatus === "sent" && <p role="status" className="text-sm text-primary">{t.contact.successMessage}</p>}
+                  {contactFormStatus === "activation" && <p role="alert" className="text-sm text-amber-400">{t.contact.activationMessage}</p>}
                   {contactFormStatus === "error" && <p role="alert" className="text-sm text-destructive">{t.contact.errorMessage}</p>}
                 </div>
               </form>
