@@ -68,7 +68,7 @@ export const content = {
         {
           role: "Assistente de TI",
           company: "Cogna Educação / Anhanguera",
-          period: "Set 2025 — Presente",
+          period: "Set 2025 — Nov 2026",
           points: [
             "Suporte técnico N1 e gerenciamento de chamados via ServiceNow para toda a unidade.",
             "Administração de rede e infraestrutura; cabeamento estruturado e suporte ao CPD.",
@@ -259,7 +259,7 @@ export const content = {
         {
           role: "IT Assistant",
           company: "Cogna Educação / Anhanguera",
-          period: "Sep 2025 — Present",
+          period: "Sep 2025 — Nov 2026",
           points: [
             "Tier 1 technical support and ticket management via ServiceNow for the entire campus.",
             "Network and infrastructure administration; structured cabling and data center support.",
