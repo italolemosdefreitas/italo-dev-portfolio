@@ -40,7 +40,7 @@ export const content = {
     },
     stats: [
       { value: "140–180 / semana", label: "chamados e agendamentos pelo chatbot que desenvolvi" },
-      { value: "~10 / semana", label: "atendimentos técnicos na Câmara Municipal" },
+      { value: "~10 / dia", label: "atendimentos técnicos na Câmara Municipal" },
     ],
     about: {
       title: "Um pouco sobre meu trabalho",
@@ -219,7 +219,7 @@ export const content = {
     },
     stats: [
       { value: "140–180 / mo.", label: "tickets and appointments handled by a chatbot I built" },
-      { value: "~10 / week", label: "technical support requests at the City Council" },
+      { value: "~10 / day", label: "technical support requests at the City Council" },
     ],
     about: {
       title: "How I work",
