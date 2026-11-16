@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
-import { BlurReveal } from "@/components/spell/blur-reveal";
-import { HighlightedText } from "@/components/spell/highlighted-text";
+import { useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { QRCode } from "@/components/spell/qr-code";
 import brandIcon from "@/assets/italo-dev-256.png.asset.json";
 import { Button } from "@/components/ui/button";
@@ -14,14 +12,6 @@ import {
   MapPin,
   MessageCircle,
   ExternalLink,
-  Bot,
-  CalendarCheck,
-  Briefcase,
-  GraduationCap,
-  Award,
-  Languages,
-  Loader,
-  Code2,
   ArrowUp,
   ArrowDown,
 } from "lucide-react";
@@ -34,13 +24,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portfólio de Ítalo Lemos de Freitas: profissional de TI com experiência em suporte N1/N3, infraestrutura de redes, automações (chatbot corporativo) e análise de dados. Currículo em português e inglês.",
+          "Ítalo Lemos de Freitas trabalha com suporte de TI, infraestrutura e automação de processos em Piracicaba, SP.",
       },
       { property: "og:title", content: "Ítalo Lemos de Freitas — TI, Automação & Dados" },
       {
         property: "og:description",
         content:
-          "Suporte técnico N1/N3, redes, automação com Node.js e análise de dados. Conheça meus projetos e baixe meu currículo em PT ou EN.",
+          "Experiência com suporte técnico, redes e ferramentas internas que reduzem tarefas manuais.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -49,44 +39,7 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
-const LightRays = lazy(() => import("@/components/spell/light-rays"));
 const sectionIds = ["inicio", "sobre", "experiencia", "projetos", "competencias", "educacao", "contato"] as const;
-
-function PageRays() {
-  const [mounted, setMounted] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [colors, setColors] = useState<[string, string] | null>(null);
-
-  useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setReduceMotion(preference.matches);
-    updatePreference();
-    preference.addEventListener("change", updatePreference);
-    const styles = getComputedStyle(document.documentElement);
-    setColors([styles.getPropertyValue("--rays-primary").trim(), styles.getPropertyValue("--rays-secondary").trim()]);
-    setMounted(true);
-    return () => preference.removeEventListener("change", updatePreference);
-  }, []);
-
-  if (!mounted || !colors) return null;
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-x-0 top-0 z-0 h-svh overflow-hidden opacity-75 [backface-visibility:hidden] [transform:translateZ(0)]"
-    >
-      <Suspense fallback={null}>
-        <LightRays
-          intensity={26}
-          rays={28}
-          reach={20}
-          position={52}
-          raysColor={{ mode: "multi", color1: colors[0], color2: colors[1] }}
-          animation={{ animate: !reduceMotion, speed: 12 }}
-        />
-      </Suspense>
-    </div>
-  );
-}
 
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("pt");
@@ -253,7 +206,6 @@ function Portfolio() {
 
   return (
     <div id="inicio" className="relative min-h-screen bg-background text-foreground">
-      <PageRays />
       <div className="relative z-10 pt-[4.5rem] lg:pt-[3.6875rem]">
         {/* Nav */}
         <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background">
@@ -351,33 +303,19 @@ function Portfolio() {
         </nav>
 
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="relative mx-auto max-w-5xl px-4 pb-16 pt-20 md:pt-28">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-              {t.hero.badge}
-            </span>
-            <p className="mt-6 text-muted-foreground">{t.hero.greeting}</p>
-            <h1 className="font-display mt-1 text-4xl font-bold tracking-tight md:text-6xl">
-              <HighlightedText from="left" delay={0.1}>
+        <section>
+          <div className="mx-auto grid max-w-5xl gap-12 px-4 pb-20 pt-20 md:grid-cols-[minmax(0,1fr)_18rem] md:items-end md:gap-16 md:pb-24 md:pt-28">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{t.hero.role}</p>
+              <h1 className="font-display mt-5 text-5xl font-semibold leading-[1.04] tracking-[-0.045em] md:text-7xl">
                 {t.hero.name}
-              </HighlightedText>
-            </h1>
-            <BlurReveal
-              key={lang}
-              as="p"
-              delay={0.12}
-              speedReveal={2.5}
-              className="font-display mt-3 text-lg text-primary md:text-xl"
-            >
-              {t.hero.role}
-            </BlurReveal>
-            <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">{t.hero.summary}</p>
-            <p className="mt-4 flex items-center gap-1.5 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4" /> {t.hero.location}
-            </p>
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg md:leading-8">{t.hero.summary}</p>
+              <p className="mt-4 flex items-center gap-1.5 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4" /> {t.hero.location}
+              </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild size="lg" className="btn-anim btn-primary-anim">
                 <a href={LINKS.whatsapp} target="_blank" rel="noreferrer">
                   <MessageCircle className="h-4 w-4" /> {t.hero.ctaPrimary}
@@ -407,7 +345,7 @@ function Portfolio() {
               </a>
             </div>
 
-            <div className="mt-6 flex items-center gap-4 text-muted-foreground">
+              <div className="mt-6 flex items-center gap-4 text-muted-foreground">
               <a
                 href={LINKS.github}
                 target="_blank"
@@ -430,60 +368,50 @@ function Portfolio() {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-
-            {/* Stats */}
-            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-              {t.stats.map((s) => (
-                <div key={s.label} className="rounded-xl border border-border bg-card p-4">
-                  <p className="font-display text-2xl font-bold text-primary">{s.value}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
-                </div>
-              ))}
             </div>
-          </div>
+
+            <aside className="border-t border-border pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{t.hero.proofLabel}</p>
+              <div className="mt-3 divide-y divide-border">
+                {t.stats.map((s) => (
+                  <div key={s.label} className="py-5 first:pt-3 last:pb-0">
+                    <p className="font-display text-3xl font-semibold tracking-tight text-primary">{s.value}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </aside>
+            </div>
         </section>
 
         {/* About */}
         <section id="sobre" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
-            <h2 className="font-display text-2xl font-bold md:text-3xl">
-              <HighlightedText from="bottom" inView>
-                {t.about.title}
-              </HighlightedText>
-            </h2>
-            <div className="mt-6 max-w-3xl space-y-4 leading-relaxed text-muted-foreground">
-              {t.about.text.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+            <div className="grid gap-6 md:grid-cols-[minmax(12rem,0.7fr)_minmax(0,1.3fr)] md:gap-16">
+              <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.about.title}</h2>
+              <div className="max-w-3xl space-y-4 leading-7 text-muted-foreground">
+                {t.about.text.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
         {/* Experience */}
-        <section id="experiencia" className="section-divider bg-card/40">
+        <section id="experiencia" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
-            <h2 className="font-display flex items-center gap-2 text-2xl font-bold md:text-3xl">
-              <Briefcase className="h-6 w-6 text-primary" />{" "}
-              <HighlightedText from="right" inView>
-                {t.experience.title}
-              </HighlightedText>
-            </h2>
-            <div className="mt-8 space-y-6">
+            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.experience.title}</h2>
+            <div className="mt-8 divide-y divide-border border-y border-border">
               {t.experience.items.map((job) => (
-                <article
-                  key={job.company + job.period}
-                  className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40"
-                >
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-display text-lg font-semibold">
-                      {job.role} <span className="text-primary">· {job.company}</span>
-                    </h3>
-                    <span className="text-xs font-medium text-muted-foreground">{job.period}</span>
+                <article key={job.company + job.period} className="grid gap-3 py-6 md:grid-cols-[10rem_minmax(12rem,0.72fr)_minmax(0,1.28fr)] md:gap-8">
+                  <span className="pt-1 text-sm text-muted-foreground">{job.period}</span>
+                  <div>
+                    <h3 className="font-semibold">{job.role}</h3>
+                    <p className="mt-1 text-sm text-primary">{job.company}</p>
                   </div>
-                  <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted-foreground">
-                    {job.points.map((pt, i) => (
-                      <li key={i}>{pt}</li>
-                    ))}
+                  <ul className="space-y-2 text-sm leading-6 text-muted-foreground">
+                    {job.points.map((pt, i) => <li key={i}>{pt}</li>)}
                   </ul>
                 </article>
               ))}
@@ -494,44 +422,23 @@ function Portfolio() {
         {/* Projects */}
         <section id="projetos" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
-            <h2 className="font-display text-2xl font-bold md:text-3xl">
-              <HighlightedText from="top" inView>
-                {t.projects.title}
-              </HighlightedText>
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {t.projects.items.map((p) => (
-                <article
-                  key={p.title}
-                  className="flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40 md:last:odd:col-span-2 md:last:odd:w-[calc(50%-0.75rem)] md:last:odd:justify-self-center"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="rounded-lg bg-primary/10 p-2 text-primary">
-                       {p.link === LINKS.portfolio ? <Code2 className="h-5 w-5" /> : p.link ? <CalendarCheck className="h-5 w-5" /> : p.tags.includes("ERP") ? <Briefcase className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
-                    </span>
+            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.projects.title}</h2>
+            <div className="mt-8 border-y border-border">
+              {t.projects.items.map((p, index) => (
+                <article key={p.title} className="grid gap-3 border-b border-border py-6 last:border-b-0 md:grid-cols-[minmax(12rem,0.8fr)_minmax(0,1.2fr)] md:gap-12 md:py-8">
+                  <div>
+                    <p className="mb-2 text-xs font-medium tabular-nums text-muted-foreground">0{index + 1}</p>
                     <h3 className="font-display text-lg font-semibold">{p.title}</h3>
                   </div>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {p.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div>
+                    <p className="text-sm leading-6 text-muted-foreground">{p.description}</p>
+                    <p className="mt-3 text-xs leading-5 text-muted-foreground/80">{p.tags.join(" · ")}</p>
+                    {p.link && (
+                      <a href={p.link} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
+                        {p.linkLabel} <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
                   </div>
-                  {p.link && (
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-                    >
-                      {p.linkLabel} <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  )}
                 </article>
               ))}
             </div>
@@ -539,25 +446,16 @@ function Portfolio() {
         </section>
 
         {/* Skills */}
-        <section id="competencias" className="section-divider bg-card/40">
+        <section id="competencias" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
-            <h2 className="font-display text-2xl font-bold md:text-3xl">
-              <HighlightedText from="left" inView>
-                {t.skills.title}
-              </HighlightedText>
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.skills.title}</h2>
+            <div className="mt-8 grid gap-8 border-t border-border pt-6 md:grid-cols-3 md:gap-10">
               {t.skills.groups.map((g) => (
-                <div key={g.name} className="rounded-xl border border-border bg-card p-6">
-                  <h3 className="font-display font-semibold text-primary">{g.name}</h3>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                <div key={g.name}>
+                  <h3 className="font-display text-base font-semibold">{g.name}</h3>
+                  <div className="mt-3 flex flex-wrap gap-x-2.5 gap-y-1">
                     {g.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground"
-                      >
-                        {item}
-                      </span>
+                      <span key={item} className="text-sm leading-6 text-muted-foreground">{item}</span>
                     ))}
                   </div>
                 </div>
@@ -569,58 +467,47 @@ function Portfolio() {
         {/* Education */}
         <section id="educacao" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
-            <h2 className="font-display flex items-center gap-2 text-2xl font-bold md:text-3xl">
-              <GraduationCap className="h-6 w-6 text-primary" />{" "}
-              <HighlightedText from="bottom" inView>
-                {t.education.title}
-              </HighlightedText>
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-border bg-card p-6">
-                <h3 className="font-display font-semibold">{t.education.degree}</h3>
+            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.education.title}</h2>
+            <div className="mt-8 grid gap-10 border-t border-border pt-6 md:grid-cols-2 md:gap-16">
+              <div>
+                <h3 className="font-display text-lg font-semibold">{t.education.degree}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{t.education.school}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{t.education.period}</p>
-                <h4 className="font-display mt-5 flex items-center gap-2 text-sm font-semibold text-primary">
-                  <Loader className="h-4 w-4" /> {t.education.inProgress}
-                </h4>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                <p className="mt-1 text-sm text-muted-foreground">{t.education.period}</p>
+                <h4 className="mt-6 text-sm font-semibold">{t.education.inProgress}</h4>
+                <ul className="mt-2 space-y-1.5 text-sm leading-6 text-muted-foreground">
                   {t.education.inProgressItems.map((i) => (
                     <li key={i}>{i}</li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-xl border border-border bg-card p-6">
-                <h4 className="font-display flex items-center gap-2 text-sm font-semibold text-primary">
-                  <Award className="h-4 w-4" /> {t.education.certs}
-                </h4>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+              <div className="grid gap-6 sm:grid-cols-2 sm:gap-8">
+                <div>
+                  <h4 className="text-sm font-semibold">{t.education.certs}</h4>
+                  <ul className="mt-2 space-y-1.5 text-sm leading-6 text-muted-foreground">
                   {t.education.certItems.map((i) => (
                     <li key={i}>{i}</li>
                   ))}
-                </ul>
-                <h4 className="font-display mt-5 flex items-center gap-2 text-sm font-semibold text-primary">
-                  <Languages className="h-4 w-4" /> {t.education.langs}
-                </h4>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold">{t.education.langs}</h4>
+                  <ul className="mt-2 space-y-1.5 text-sm leading-6 text-muted-foreground">
                   {t.education.langItems.map((i) => (
                     <li key={i}>{i}</li>
                   ))}
-                </ul>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Contact */}
-        <section id="contato" className="section-divider bg-card/40">
+        <section id="contato" className="section-divider">
           <div className="mx-auto max-w-5xl px-4 py-16">
             <div className="grid items-center gap-10 md:grid-cols-[1fr_auto]">
               <div>
-                <h2 className="font-display text-2xl font-bold md:text-3xl">
-                  <HighlightedText from="right" inView>
-                    {t.contact.title}
-                  </HighlightedText>
-                </h2>
+                <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{t.contact.title}</h2>
                 <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">{t.contact.text}</p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button asChild size="lg" className="btn-anim btn-primary-anim">
@@ -679,7 +566,7 @@ function Portfolio() {
                 </div>
               </div>
               <div className="flex flex-col items-center gap-3">
-                <div className="rounded-lg border border-border bg-qr-background p-3 shadow-lg">
+                <div className="rounded-lg bg-qr-background p-3">
                   <QRCode
                     value={LINKS.whatsapp}
                     size={180}
@@ -698,7 +585,7 @@ function Portfolio() {
                 id="contact-request-form"
                 ref={contactFormRef}
                 onSubmit={handleContactSubmit}
-                className="mt-12 scroll-mt-24 rounded-2xl border border-border/70 bg-card p-5 shadow-lg md:p-8"
+                className="mt-12 scroll-mt-24 border-y border-border py-8"
               >
                 <div className="mb-6">
                   <h3 className="font-display text-xl font-bold md:text-2xl">{t.contact.formTitle}</h3>

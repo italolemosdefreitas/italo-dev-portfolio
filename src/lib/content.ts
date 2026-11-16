@@ -27,30 +27,26 @@ export const content = {
       contact: "Contato",
     },
     hero: {
-      badge: "Disponível para oportunidades",
-      greeting: "Olá, eu sou",
       name: "Ítalo Lemos de Freitas",
-      role: "Profissional de TI · Suporte N1/N3 · Automação & Dados",
+      role: "Suporte de TI · Infraestrutura · Automação",
       summary:
-        "Profissional de TI com experiência em suporte técnico (N1/N3), infraestrutura de redes e desenvolvimento de automações. Graduando em Ciência da Computação, com destaque para um chatbot corporativo que processa 140–180 solicitações por mês.",
-      ctaPrimary: "Solicitar orçamento",
+        "Trabalho com suporte técnico e infraestrutura, e uso programação para reduzir tarefas manuais. Minha experiência combina atendimento a usuários, redes e desenvolvimento de ferramentas internas.",
+      proofLabel: "Resultados do trabalho",
+      ctaPrimary: "Falar sobre um projeto",
       ctaSecondary: "Ver projetos",
       downloadPt: "Currículo (PT)",
       downloadEn: "Resume (EN)",
       location: "Piracicaba, SP — Brasil",
     },
     stats: [
-      { value: "140–180", label: "solicitações/mês automatizadas" },
-      { value: "5+", label: "anos de experiência em TI" },
-      { value: "N1–N3", label: "níveis de suporte atendidos" },
-      { value: "C2", label: "inglês (EF SET 72/100)" },
+      { value: "140–180 / mês", label: "chamados e agendamentos pelo chatbot que desenvolvi" },
+      { value: "~10 / semana", label: "atendimentos técnicos na Câmara Municipal" },
     ],
     about: {
-      title: "Sobre mim",
+      title: "Um pouco sobre meu trabalho",
       text: [
-        "Atuo com suporte técnico, infraestrutura de redes e desenvolvimento de automações, unindo o lado operacional de TI com programação para resolver problemas reais.",
-        "Na Cogna Educação/Anhanguera, desenvolvi e mantenho um chatbot corporativo (JavaScript/Node.js) integrado a Discord, WhatsApp e NocoDB que substituiu um processo manual de chamados — centralizando triagem de urgência e agendamentos.",
-        "Também tenho experiência com análise de dados (Power BI, DAX, Excel avançado, VBA) e desenvolvimento front-end freelance com foco em UI/UX.",
+        "Minha rotina costuma começar entendendo o que está travando alguém: um equipamento, um acesso ou um processo demorado. A partir daí, resolvo a parte de TI e, quando faz sentido, automatizo o que se repete.",
+        "Também já trabalhei com dados, manutenção de aplicativo Android e desenvolvimento front-end. Hoje curso Ciência da Computação e sigo aprofundando essa base.",
       ],
     },
     experience: {
@@ -106,7 +102,7 @@ export const content = {
       ],
     },
     projects: {
-      title: "Projetos em destaque",
+      title: "Trabalhos e projetos",
       items: [
         {
           title: "Chatbot Corporativo de Chamados",
@@ -131,14 +127,6 @@ export const content = {
           tags: ["ERP", "UI/UX", "Testes de estresse"],
           link: LINKS.erp,
           linkLabel: "Visitar site",
-        },
-        {
-          title: "Portfólio Ítalo.dev",
-          description:
-            "Este site reúne minha trajetória, projetos e formas de contato em uma experiência responsiva, bilíngue e com animações interativas.",
-          tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
-          link: null as string | null,
-          linkLabel: null as string | null,
         },
       ],
     },
@@ -218,30 +206,26 @@ export const content = {
       contact: "Contact",
     },
     hero: {
-      badge: "Open to opportunities",
-      greeting: "Hi, I'm",
       name: "Ítalo Lemos de Freitas",
-      role: "IT Professional · Tier 1/3 Support · Automation & Data",
+      role: "IT Support · Infrastructure · Automation",
       summary:
-        "IT professional experienced in technical support (Tier 1/3), network infrastructure, and automation development. Computer Science undergraduate, highlighted by a corporate chatbot now handling 140–180 requests per month.",
-      ctaPrimary: "Request a quote",
+        "I work in technical support and infrastructure, and use code to cut down on manual work. My experience spans user support, networking, and building internal tools.",
+      proofLabel: "Work in practice",
+      ctaPrimary: "Discuss a project",
       ctaSecondary: "View projects",
       downloadPt: "Currículo (PT)",
       downloadEn: "Resume (EN)",
       location: "Piracicaba, SP — Brazil",
     },
     stats: [
-      { value: "140–180", label: "automated requests/month" },
-      { value: "5+", label: "years of IT experience" },
-      { value: "T1–T3", label: "support tiers covered" },
-      { value: "C2", label: "English (EF SET 72/100)" },
+      { value: "140–180 / mo.", label: "tickets and appointments handled by a chatbot I built" },
+      { value: "~10 / week", label: "technical support requests at the City Council" },
     ],
     about: {
-      title: "About me",
+      title: "How I work",
       text: [
-        "I work across technical support, network infrastructure, and automation development — combining hands-on IT operations with programming to solve real problems.",
-        "At Cogna Educação/Anhanguera, I built and maintain a corporate chatbot (JavaScript/Node.js) integrated with Discord, WhatsApp, and NocoDB that replaced a manual ticketing process — centralizing urgency triage and scheduling.",
-        "I also have experience in data analysis (Power BI, DAX, advanced Excel, VBA) and freelance front-end development focused on UI/UX.",
+        "I usually start by figuring out what is getting in someone's way: a device, an account, or a slow process. I handle the IT issue first, then automate repetitive work when it makes sense.",
+        "I've also worked with data, Android app maintenance, and front-end development. I'm currently studying Computer Science and building on that foundation.",
       ],
     },
     experience: {
@@ -297,7 +281,7 @@ export const content = {
       ],
     },
     projects: {
-      title: "Featured projects",
+      title: "Selected work",
       items: [
         {
           title: "Corporate Ticketing Chatbot",
@@ -322,14 +306,6 @@ export const content = {
           tags: ["ERP", "UI/UX", "Stress testing"],
           link: LINKS.erp,
           linkLabel: "Visit site",
-        },
-        {
-          title: "Ítalo.dev Portfolio",
-          description:
-            "This site presents my experience, projects, and contact details in a responsive, bilingual experience with interactive animations.",
-          tags: ["React", "TypeScript", "Tailwind CSS", "Spell UI"],
-          link: null as string | null,
-          linkLabel: null as string | null,
         },
       ],
     },
