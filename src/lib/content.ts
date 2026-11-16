@@ -169,7 +169,7 @@ export const content = {
       certs: "Certificações",
       certItems: ["Power BI — Construindo Cálculos com DAX", "Estatística com Python", "Lógica de Programação com JavaScript"],
       langs: "Idiomas",
-      langItems: ["Português (Nativo)", "Inglês C2 (EF SET 72/100)", "Espanhol (Básico)"],
+      langItems: ["Português (Nativo)", "Inglês B2 (EF SET 58/100)", "Espanhol (Básico)"],
     },
     contact: {
       title: "Vamos conversar?",
@@ -360,7 +360,7 @@ export const content = {
       certs: "Certifications",
       certItems: ["Power BI — Building Calculations with DAX", "Statistics with Python", "Programming Logic with JavaScript"],
       langs: "Languages",
-      langItems: ["Portuguese (Native)", "English C2 (EF SET 72/100)", "Spanish (Basic)"],
+      langItems: ["Portuguese (Native)", "English B2 (EF SET 58/100)", "Spanish (Basic)"],
     },
     contact: {
       title: "Let's talk",
