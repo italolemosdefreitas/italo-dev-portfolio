@@ -39,7 +39,7 @@ export const content = {
       location: "Piracicaba, SP — Brasil",
     },
     stats: [
-      { value: "140–180 / mês", label: "chamados e agendamentos pelo chatbot que desenvolvi" },
+      { value: "140–180 / semana", label: "chamados e agendamentos pelo chatbot que desenvolvi" },
       { value: "~10 / semana", label: "atendimentos técnicos na Câmara Municipal" },
     ],
     about: {
@@ -68,7 +68,7 @@ export const content = {
           points: [
             "Suporte técnico N1 e gerenciamento de chamados via ServiceNow para toda a unidade.",
             "Administração de rede e infraestrutura; cabeamento estruturado e suporte ao CPD.",
-            "Desenvolvimento e manutenção de chatbot corporativo (Node.js) integrado a Discord, WhatsApp e NocoDB — 140–180 chamados/mês.",
+            "Desenvolvimento e manutenção de chatbot corporativo (Node.js) integrado a Discord, WhatsApp e NocoDB — 140–180 chamados/semana.",
             "Colaboração em sistema ERP da Anhanguera, com contribuições em UI/UX, testes de estresse e novas funcionalidades para outros setores.",
           ],
         },
@@ -107,7 +107,7 @@ export const content = {
         {
           title: "Chatbot Corporativo de Chamados",
           description:
-            "Automação de chamados e agendamentos com JavaScript, Node.js, NocoDB, Discord e WhatsApp. Substituiu um fluxo manual (planilhas + WhatsApp), processando 140–180 solicitações por mês com triagem de urgência centralizada.",
+            "Automação de chamados e agendamentos com JavaScript, Node.js, NocoDB, Discord e WhatsApp. Substituiu um fluxo manual (planilhas + WhatsApp), processando 140–180 solicitações por semana com triagem de urgência centralizada.",
           tags: ["Node.js", "JavaScript", "NocoDB", "WhatsApp API", "Discord"],
           link: null as string | null,
           linkLabel: null as string | null,
@@ -247,7 +247,7 @@ export const content = {
           points: [
             "Tier 1 technical support and ticket management via ServiceNow for the entire campus.",
             "Network and infrastructure administration; structured cabling and data center support.",
-            "Development and maintenance of a corporate chatbot (Node.js) integrated with Discord, WhatsApp, and NocoDB — 140–180 tickets/month.",
+            "Development and maintenance of a corporate chatbot (Node.js) integrated with Discord, WhatsApp, and NocoDB — 140–180 tickets/week.",
             "Collaborated on Anhanguera's ERP system, contributing to UI/UX, stress testing, and new features for other departments.",
           ],
         },
@@ -286,7 +286,7 @@ export const content = {
         {
           title: "Corporate Ticketing Chatbot",
           description:
-            "Ticket and scheduling automation built with JavaScript, Node.js, NocoDB, Discord, and WhatsApp. Replaced a manual workflow (spreadsheets + WhatsApp), now processing 140–180 requests per month with centralized urgency triage.",
+            "Ticket and scheduling automation built with JavaScript, Node.js, NocoDB, Discord, and WhatsApp. Replaced a manual workflow (spreadsheets + WhatsApp), now processing 140–180 requests per week with centralized urgency triage.",
           tags: ["Node.js", "JavaScript", "NocoDB", "WhatsApp API", "Discord"],
           link: null as string | null,
           linkLabel: null as string | null,
